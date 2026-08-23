@@ -117,10 +117,11 @@ func CapVoltageWaveform(s spec.Spec, mode Mode, vout float64, segments int) (*Wa
 	}
 	qMean /= wave.Period
 	out := &Waveform{Mode: mode, Period: wave.Period, DeltaIL: wave.DeltaIL}
-	out.Points = make([]WavePoint, 0, len(pts))
+	held := make([]WavePoint, 0, len(pts))
 	for i, p := range pts {
-		out.Points = append(out.Points, WavePoint{T: p.T, I: (q[i] - qMean) / s.C})
+		held = append(held, WavePoint{T: p.T, I: (q[i] - qMean) / s.C})
 	}
+	out.Points = bindVoltLive(held)
 	return out, nil
 }
 
