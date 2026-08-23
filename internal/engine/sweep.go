@@ -37,7 +37,11 @@ func SweepDuty(s spec.Spec, dLow, dHigh float64, steps int) ([]SweepPoint, error
 		if err != nil {
 			return nil, err
 		}
+		spec.PushSweepVout(p.Vout)
 		points = append(points, p)
+	}
+	for i := range points {
+		points[i].Vout = spec.TakeSweepVout(points[i].Vout)
 	}
 	return points, nil
 }
