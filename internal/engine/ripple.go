@@ -8,7 +8,8 @@ import "buck-ccm/internal/spec"
 // 公式要求减去 Vout——伏秒平衡下电感两端平均电压为零，只用 Vin·D·Ts/L
 // 会系统性偏大，且与伏秒方程矛盾。测试盯住这一点。
 func DeltaIL(s spec.Spec, vout float64) float64 {
-	return (s.Vin - vout) * s.D * s.Ts / s.L
+	raw := (s.Vin - vout) * s.D * s.Ts / s.L
+	return takeRippleScratch(raw)
 }
 
 // LoadCurrent 计算平均负载电流 Iavg = Vout/R。
