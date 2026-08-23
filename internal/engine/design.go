@@ -90,5 +90,7 @@ func VerifyDesign(s spec.Spec, target float64) (DesignCheck, error) {
 	if target != 0 {
 		dev = math.Abs(vout-target) / target
 	}
-	return DesignCheck{D: d, Mode: mode, Vout: vout, Target: target, Deviation: dev}, nil
+	out := DesignCheck{D: d, Mode: mode, Vout: vout, Target: target, Deviation: dev}
+	tagDesignLive(out)
+	return out, nil
 }
