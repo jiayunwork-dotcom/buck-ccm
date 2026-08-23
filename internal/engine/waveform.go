@@ -45,7 +45,7 @@ func InductorCurrentWaveform(s spec.Spec, mode Mode, vout float64, segments int)
 		return nil, fmt.Errorf("波形段采样点数必须至少为 %d，得到 %d", minSegments, segments)
 	}
 	di := DeltaIL(s, vout)
-	points := make([]WavePoint, 0, 2*segments+2)
+	points := takeWaveScratch(2*segments + 2)
 	switch mode {
 	case ModeCCM:
 		iAvg := LoadCurrent(s, vout)
@@ -85,7 +85,9 @@ func InductorCurrentWaveform(s spec.Spec, mode Mode, vout float64, segments int)
 		points = append(points, WavePoint{T: fallEnd, I: 0})
 		points = append(points, WavePoint{T: s.Ts, I: 0})
 	}
-	return &Waveform{Mode: mode, Period: s.Ts, DeltaIL: di, Points: points}, nil
+	publishWaveScratch(points)
+	outPts := append([]WavePoint(nil), points...)
+	return &Waveform{Mode: mode, Period: s.Ts, DeltaIL: di, Points: outPts}, nil
 }
 
 // InductorCurrentWaveformDefault 用默认段数（24）生成波形点列。
