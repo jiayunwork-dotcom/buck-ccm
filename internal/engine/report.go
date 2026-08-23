@@ -36,7 +36,7 @@ func Analyze(s spec.Spec) (*Result, error) {
 	if err != nil {
 		return nil, err
 	}
-	return &Result{
+	out := &Result{
 		Spec:         s,
 		Mode:         steady.Mode,
 		Vout:         steady.Vout,
@@ -52,7 +52,9 @@ func Analyze(s spec.Spec) (*Result, error) {
 		Conductor:    ripple.Conductor,
 		CCMFraction:  CCMFraction(s, steady.Vout),
 		BoundaryDuty: CriticalDuty(s),
-	}, nil
+	}
+	tagAnalyzeLive(out)
+	return out, nil
 }
 
 // BoundaryLabel 返回模式边界的可读结论：
