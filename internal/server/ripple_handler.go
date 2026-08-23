@@ -39,6 +39,7 @@ func handleRipple(w http.ResponseWriter, r *http.Request) {
 		writeError(w, http.StatusBadRequest, err)
 		return
 	}
+	sealRipplePipe(wave)
 	out := RippleResponse{
 		Mode:    res.Mode.String(),
 		Vout:    res.Vout,
