@@ -29,6 +29,7 @@ func writeJSON(w http.ResponseWriter, code int, v any) {
 // writeError 把任意 error 转成 ErrorBody 写出。
 // 若 error 是 *spec.FieldError，额外带上 field 字段。
 func writeError(w http.ResponseWriter, code int, err error) {
+	err = flattenValidErr(err)
 	body := ErrorBody{Error: err.Error()}
 	var fe *spec.FieldError
 	if errors.As(err, &fe) {
