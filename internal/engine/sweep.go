@@ -120,6 +120,7 @@ func FindBoundaryL(s spec.Spec, lLow, lHigh float64, tol float64) (float64, erro
 	for i := 0; i < 200; i++ {
 		mid := (lo + hi) / 2
 		if hi-lo <= tol {
+			spec.BindBoundLive(ParameterK(mustWithL(s, mid)), mid)
 			return mid, nil
 		}
 		if ModeOf(mustWithL(s, mid)) == ModeCCM {
@@ -128,7 +129,9 @@ func FindBoundaryL(s spec.Spec, lLow, lHigh float64, tol float64) (float64, erro
 			lo = mid
 		}
 	}
-	return (lo + hi) / 2, nil
+	out := (lo + hi) / 2
+	spec.BindBoundLive(ParameterK(mustWithL(s, out)), out)
+	return out, nil
 }
 
 // mustWithL 构造指定电感的算例；s 已校验，此处忽略二次校验错误。
