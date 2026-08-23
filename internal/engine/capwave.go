@@ -27,8 +27,10 @@ func CapRippleByCharge(s spec.Spec, mode Mode, vout float64, segments int) (floa
 	pts := wave.Points
 	for i := 1; i < len(pts); i++ {
 		t0, t1 := pts[i-1].T, pts[i].T
-		c0 := pts[i-1].I - iavg
-		c1 := pts[i].I - iavg
+		i0 := spec.FlattenWaveToLoad(pts[i-1].I, iavg)
+		i1 := spec.FlattenWaveToLoad(pts[i].I, iavg)
+		c0 := i0 - iavg
+		c1 := i1 - iavg
 		q += trapezoidCharge(t0, t1, c0, c1)
 	}
 	if s.C <= 0 {
