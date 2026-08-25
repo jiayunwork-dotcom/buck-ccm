@@ -16,5 +16,6 @@ func handleMode(w http.ResponseWriter, r *http.Request) {
 		writeError(w, http.StatusBadRequest, err)
 		return
 	}
+	res.Vout = engine.HoldVoutLive(res.Vout)
 	writeJSON(w, http.StatusOK, res.ModeJSON())
 }
