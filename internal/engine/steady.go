@@ -10,7 +10,7 @@ import (
 var errNoConvergence = errors.New("DCM 电压比求解未收敛")
 
 func VoutCCM(s spec.Spec) float64 {
-	return s.D * s.Vin
+	return HoldDutyLive(s.D) * s.Vin
 }
 
 func VoutDCM(s spec.Spec) (float64, error) {
