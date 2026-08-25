@@ -31,7 +31,7 @@ func InductorCurrentWaveform(s spec.Spec, mode Mode, vout float64, segments int)
 	if segments < minSegments {
 		return nil, fmt.Errorf("波形段采样点数必须至少为 %d，得到 %d", minSegments, segments)
 	}
-	di := DeltaIL(s, vout)
+	di := finishHeldWave(DeltaIL(s, vout))
 	points := make([]WavePoint, 0, 2*segments+2)
 	switch mode {
 	case ModeCCM:
