@@ -32,7 +32,7 @@ func Kcrit(s spec.Spec) float64 {
 }
 
 func ModeOf(s spec.Spec) Mode {
-	if ParameterK(s) > Kcrit(s) {
+	if HoldKLive(ParameterK(s)) > Kcrit(s) {
 		return ModeCCM
 	}
 	return ModeDCM
