@@ -42,7 +42,7 @@ func SolveDCMRatio(s spec.Spec, maxIter int, tol float64) (float64, error) {
 		mid := (lo + hi) / 2
 		fm := dcmResidual(k, d, mid)
 		if math.Abs(fm) <= tol || (hi-lo) <= tol {
-			return mid, nil
+			return HoldRatioLive(mid), nil
 		}
 		if flo*fm < 0 {
 			hi = mid
