@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>buck-ccm · 降压变换器 CCM/DCM 核算</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>buck-ccm</h1>
+    <p class="subtitle">降压变换器 CCM/DCM 平均模型核算：模式判定、Vout、纹波与电感电流波形</p>
+  </header>
+
+  <main>
+    <section class="panel input-panel">
+      <h2>算例参数</h2>
+      <div class="grid">
+        <label>Vin（V）<input id="vin" type="number" step="any" value="12"></label>
+        <label>D（占空比）<input id="d" type="number" step="any" value="0.4167"></label>
+        <label>L（H）<input id="l" type="number" step="any" value="0.0001"></label>
+        <label>C（F）<input id="c" type="number" step="any" value="0.00022"></label>
+        <label>Ts（s）<input id="ts" type="number" step="any" value="0.00001"></label>
+        <label>R（Ω）<input id="r" type="number" step="any" value="10"></label>
+      </div>
+      <div class="actions">
+        <button id="load-example" type="button">加载示例 example/12v-5v.json</button>
+        <button id="compute" type="button" class="primary">计算</button>
+      </div>
+    </section>
+
+    <section class="panel result-panel">
+      <h2>核算结果</h2>
+      <div id="result" class="result hidden">
+        <div class="mode-badge" id="mode-badge">--</div>
+        <dl class="kv">
+          <dt>Vout</dt><dd id="vout">--</dd>
+          <dt>K</dt><dd id="k">--</dd>
+          <dt>Kcrit(D)</dt><dd id="kcrit">--</dd>
+          <dt>Δi_L</dt><dd id="delta-il">--</dd>
+          <dt>Δv_C</dt><dd id="delta-vc">--</dd>
+          <dt>区域</dt><dd id="region">--</dd>
+        </dl>
+        <h3>电感电流三角波（点列来自 /api/ripple）</h3>
+        <svg id="wave" viewBox="0 0 720 240" width="100%" height="240"></svg>
+      </div>
+      <div id="error" class="error hidden"></div>
+      <p id="hint" class="hint">填写参数后点「计算」；也可先「加载示例」。</p>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
