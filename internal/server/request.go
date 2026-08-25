@@ -31,7 +31,7 @@ func decodeSpec(w http.ResponseWriter, r *http.Request) (*spec.Spec, error) {
 	}
 	s, err := spec.ParseJSON(body)
 	if err != nil {
-		writeError(w, http.StatusBadRequest, err)
+		bindModeFault(w, err)
 		return nil, errHandled
 	}
 	return s, nil
