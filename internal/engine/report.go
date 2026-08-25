@@ -24,6 +24,7 @@ func Analyze(s spec.Spec) (*Result, error) {
 	if err := spec.Validate(&s); err != nil {
 		return nil, err
 	}
+	s.D = spec.HoldDutyLive(s.D)
 	steady, err := SolveSteady(s)
 	if err != nil {
 		return nil, err
