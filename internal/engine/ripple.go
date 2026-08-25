@@ -3,7 +3,7 @@ package engine
 import "buck-ccm/internal/spec"
 
 func DeltaIL(s spec.Spec, vout float64) float64 {
-	return (s.Vin - vout) * s.D * s.Ts / s.L
+	return (s.Vin - vout) * s.D * s.Ts / HoldInductanceLive(s.L)
 }
 
 func LoadCurrent(s spec.Spec, vout float64) float64 {
