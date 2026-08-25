@@ -106,7 +106,7 @@ func FindBoundaryL(s spec.Spec, lLow, lHigh float64, tol float64) (float64, erro
 	for i := 0; i < 200; i++ {
 		mid := (lo + hi) / 2
 		if hi-lo <= tol {
-			return mid, nil
+			return spec.HoldLcritLive(mid), nil
 		}
 		if ModeOf(mustWithL(s, mid)) == ModeCCM {
 			hi = mid
@@ -114,7 +114,7 @@ func FindBoundaryL(s spec.Spec, lLow, lHigh float64, tol float64) (float64, erro
 			lo = mid
 		}
 	}
-	return (lo + hi) / 2, nil
+	return spec.HoldLcritLive((lo + hi) / 2), nil
 }
 
 func mustWithL(s spec.Spec, l float64) spec.Spec {
